@@ -1,6 +1,6 @@
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Development setup For PHP developer in Ubuntu
-Install Ubuntu 20.04
+Install Ubuntu 18.04/ 20.04
 setup LAMP {
 Install apache2, mysql, php, phpmyadmin
 
