@@ -1,0 +1,142 @@
+---
+Development setup For PHP developer in Ubuntu
+Install Ubuntu 20.04
+setup LAMP {
+Install apache2, mysql, php, phpmyadmin
+
+▶ Install Apache:- 
+$ sudo apt update
+$ sudo apt install apache2
+$ systemctl status apache2
+$ ufw allow 80/tcp
+$ ufw allow 443/tcp
+check http://domain_name or ip/
+
+change apache root default location:- 
+create www folder to /home/user_name/ location
+copy data var/www/html to /home/user_name/www
+$ sudo /etc/apache2/apache2.conf and
+change path /var/www/ to /home/user_name/www 
+$ sudo /etc/apache2/sites-available/000-default.conf and
+change path /var/www/html to /home/user_name/www
+$ sudo systemctl restart apache2
+
+
+▶ Install Mysql:-
+$ sudo apt install mariadb-server mariadb-client
+
+First, add MariaDB repository and import the key as shown below
+$ sudo apt-get install software-properties-common
+$ sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8 
+$ sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://sgp1.mirrors.digitalocean.com/mariadb/repo/10.3/ubuntu bionic main'
+
+$ sudo apt update
+$ sudo systemctl status mysql
+
+$ sudo mysql_secure_installation
+Set root password? [Y/n]: y
+Remove anonymous users? (Press y|Y for Yes, any other key for No) : y
+Disallow root login remotely? (Press y|Y for Yes, any other key for No) : y
+Remove test database and access to it? (Press y|Y for Yes, any other key for No) : y
+Reload privilege tables now? (Press y|Y for Yes, any other key for No) : y
+
+
+▶ Install PHP:- 
+$ sudo add-apt-repository ppa:ondrej/php
+$ sudo apt-get install -y php5.6 php7.0 php7.2
+$ sudo vi /home/user_name/www/info.php
+
+<?php
+phpinfo();
+?>
+
+$ sudo systemctl restart apache2
+
+For change php version:- 
+update-alternatives --set php /usr/bin/php7.2
+$ sudo a2dismod php5.6
+$ sudo a2enmod php7.2
+
+▶ Install Phpmyadmin:- 
+$ apt-get install phpmyadmin php-gettext
+$ systemctl restart apache2
+$ mysql -u root -p
+    echo "update user set plugin='' where User='root'; flush privileges;" | mysql -u root -p mysql
+     GRANT ALL PRIVILEGES ON *.* TO root@localhost IDENTIFIED BY 'root';
+
+  use mysql;
+    update user set plugin='' where User='root';
+    flush privileges;
+$ systemctl restart apache2
+
+
+** 'unix_socket' plugin error:- 
+
+service mysql start
+cd /var/run
+cp -rp ./mysql ./mysql.bak
+service mysqo stop
+mv ./mysql.bak ./mysql
+mysqld_safe --skip-grant-tables --skip -networking &
+mysql -u root
+select Host,User,plugin from mysql.user where User='root';
+update mysql.user set plugin='mysql_native_password';
+quit
+kill -9 $(pgrep mysql)
+systemctl start mysql
+mysql -u root -password
+}
+------------------------------------------------------
+Installation of docker and docker compose 
+
+#####Docker Installation command#####
+
+$ apt install apt-transport-https ca-certificates curl software-properties-common
+$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+$ add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+$ apt update
+$ apt-cache policy docker-ce
+$ apt install docker-ce
+$ systemctl status docker
+Add user in to docker group:-   $ usermod -aG docker username
+Check all docker images :-      $ docker search images 
+Add docker image :-             $ docker pull ubuntu
+Run docker container :-         $ docker run -it ubuntu
+
+###Docker-compose installation###
+
+$ sudo curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+$ sudo chmod +x /usr/local/bin/docker-compose
+$ docker-compose --version
+--------------------------------------------
+Google Chrome	
+Filezilla	          from ubuntu software center
+Mysql Workbench	    from ubuntu software center
+Sublime	            from ubuntu software center
+Rocket.chat	        from ubuntu software center
+Git	                sudo apt install git
+Skype(optional)	    from ubuntu software center
+Postman	            from ubuntu software center
+Eclips 	            from ubuntu software center
+Selenium	          https://www.selenium.dev/downloads/
+Chromedriver	      https://chromedriver.chromium.org/downloads
+Visual studio code 	from ubuntu software center
+---------------------------------------------------------------------------
+Installation of IPA-client
+$ sudo nano /etc/hosts
+add below lines on hosts
+<IP-Address of Machine>       <Host_Name>.xyz.local Host_Name (machine)
+<IP-Address of LDAP_server>   <Host_Nameofserver>.Xyz.local Host_Name (server)
+<IP-Address of LDAP_server>   <Host_Nameofserver>.Xyz.local Host_Name (server)
+
+sudo apt install freeipa-client
+
+ipa-client-install --hostname=`hostname -f` --mkhomedir --server=svitdc-01.svaapta.local --domain svaapta.local --realm SVAAPTA.LOCAL --enable-dns-updates 
+@@@@@@@@@@@@@@@@@@@@@ 
+NOTE:
+use
+$ sudo nmtui 
+# for Editing the Host_Name(Machine) 
+like        {Host_Name.xyz.local}
+----------------------------------------
+
