@@ -1,0 +1,257 @@
+
+    • Install and Configuration linux centos, DNS, DHCP, FTP.........
+
+https://www.server-world.info/en/note?os=CentOS_6&p=dns
+
+
+    • If server not found error then enter the command in cmd prompt
+netsh winsock reset
+netsh int ip reset
+ipconfig /flushdns
+ipconfig /registerdns
+ipconfig /release
+ipconfig /renew
+
+--------------------------------------------------------------------------------------------------------
+
+    •       In Ubuntu
+
+Open /etc/NetworkManager/NetworkManager.conf in an editor with root rights. 
+    1. Delete (or comment out with a hash #) the line that reads dns=dnsmasq. 
+    2. Restart NetworkManager via  sudo service NetworkManager restart. 
+Flush dns on ubuntu-
+  sudo /etc/init.d/dns-clean restart
+or
+  sudo /etc/init.d/networking force-reload
+
+    • Install .run file on ubuntu command line
+
+     Terminal Method
+      Assume the file is called some-app.run and is in the folder /home/user/Downloads.        You will need to modify these instructions to fit your situation.
+    1. Open a terminal (Applications->Accessories->Terminal).
+    2. enter cd /home/user/Downloads
+    3. enter chmod +x some-app.run 
+    4. enter ./some-app.run
+    5. if step 4 fails with a message including 'permission denied', try entering sudo ./some-app.run (you will need to enter your password for this).
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    • Adobe reader download & install in command line
+
+
+sudo add-apt-repository "deb http://archive.canonical.com/ precise partner" 
+
+sudo apt-get update
+
+sudo apt install adobereader-enu
+
+sudo add-apt-repository -r  "deb http://archive.canonical.com/ precise partner"
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+    • How to add Swap space on Ubuntu 16.04
+
+https://www.digitalocean.com/community/tutorials/how-to-add-swap-space-on-ubuntu-16-04
+
+---------------------------------------------------------------------------------------
+    • If the localhost is not working
+
+locate apache2.conf
+gedit /etc/apache2/apache2/.conf
+include /etc/phpmyadmin/apache2.conf
+service apache2 restart
+http://localhost/phpmyadmin         or
+
+/opt/lampp/lampp restart
+
+
+    • check dns entries
+
+ netstat -antu | grep -w 53
+
+dnstop eno1
+
+https://www.linode.com/docs/security/firewalls/control-network-traffic-with-iptables
+
+
+    • To check the drivers in ubuntu
+
+sudo lshw -C network
+
+sudo airmon-ng  (in laptop show the driver)
+
+
+    • Unable to login ubuntu
+
+ls -lah
+
+chown username:username .Xauthority *
+
+mv .Xauthority .Xauthority.bak
+
+chown -R -f it-ally:it-ally /home/it-ally/
+
+
+    • How to install open ssh in ubuntu
+
+sudo apt-get install openssh-server openssh-client
+
+systemctl start sshd
+systemctl enable ssh.service
+
+ufw allow ssh
+ufw reload
+
+check sshd services ==> ps -aux | grep ssh
+
+Add new entry in samba server
+
+ smbpasswd -a ajaysinhv.svaapta
+
+
+Installing upwork
+
+ https://salmanwahed.com/127/installing-upwork-on-ubuntu-xenial-xerus/ for upwork installation 
+
+
+move unity launcher position bottom
+gsettings set com.canonical.Unity.Launcher launcher-position Bottom
+
+
+scp command
+https://tecadmin.ent/transfer-files-securely-using-scp-command-in-linux/
+
+
+
+
+
+Install wine
+
+add-apt-repository ppa:ubuntu-wine/ppa
+apt-get update
+apt-get install wine1.8 winetricks
+
+If gedit is not working
+
+sudo apt-add-repository ppa:mc3man/older
+sudo apt update && sudo apt install gedit gedit-plugins gedit-common
+
+
+Manage centos 7 server with webmin	 
+
+https://www.howtoforge.com/tutorial/how-to-manage-centos-7-server-with-webmin/
+
+
+Virtualmin/Webmin Installation And Virtual Server Setup In CentOS
+
+https://www.pickaweb.co.uk/kb/virtualminwebmin-installation-and-virtual-server-setup-in-centos/
+
+
+How To Install and Use Webmin on CentOS 7
+
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-webmin-on-centos-7
+
+
+Setup BIND DNS Server with Webmin on CentOS 6.2 
+
+http://www.windohs.co.za/setup-bind-dns-server-webmin-centos-6-2/
+
+
+Create And Configure Samba Shares In CentOS 7
+
+https://www.liberiangeek.net/2014/07/create-configure-samba-shares-centos-7/
+
+https://www.tecmint.com/setup-samba-file-sharing-for-linux-windows-clients/	
+
+
+How to keep system up to date-centos server
+
+https://tecadmin.net/keep-your-centosredhat-server-up-to-date/ 
+
+
+
+
+
+      et -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-ke
+    • convert and install .rpm file to .deb 
+
+sudo apt-get install alien dpkg-dev debhelper build essential
+sudo alien packagename.rpm
+sudo dpkg -i packagename.deb
+
+
+    • Install google chrome using command line
+
+wget -q -O- https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add-
+
+sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' (64-bit)
+
+sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' (32-bit)
+
+sudo apt-get update
+$ sudo apt-get install google-chrome-stable
+
+
+    • php upgradation process on ubuntu
+apt-get -y purge php5 libapache2-mod-php5
+add-apt-repository ppa:onderj/php
+apt-get update
+apt-get install php7.0 libapache2-mod-php7.0
+update-alternatives --set php /usr/bin/php7.0
+
+to remove xampp
+rm -rf /opt/lampp
+
+install xampp 7.1.10
+
+Create symlink in /var/www folder
+cd /opt/lampp/htdocs
+sudo 	 ln -s /home/username/public_html username
+  
+chown -R www-data /var/wwwok
+chmod -R 775 /var/www
+
+
+sudo add-apt-repository ppa:openjdk-r/ppa
+
+apt-get update
+
+apt-get install openjdk-8-jdk
+
+
+
+
+    • Flush DNS on ubuntu
+
+/etc/init.d/dns-clean restart
+or
+/etc/init.d/networking force-reload
+
+    • Install composer 
+
+apt-get update
+
+apt-get install curl php5-cli git
+
+curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin –filename=composer
+
+composer
+
+
+    • Install Laravel with composer
+      
+https://laravel.com/docs/5.4
+https://www.youtube.com/watch?v=Ax_q-eM8oqM 
+
+
+
+    • Install screenrecoder for ubuntu
+
+sudo add-apt-repository ppa:maarten-baert/simplescreenrecorder
+
+apt-get update
+
+sudo apt install simplescreenrecorder simplescreenrecorder-lib
+
+sudo apt install simplescreenrecorder-lib:i386
