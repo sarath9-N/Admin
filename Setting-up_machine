@@ -25,13 +25,11 @@ $ sudo systemctl restart apache2
 ▶ Install Mysql:-
 $ sudo apt install mariadb-server mariadb-client
 
-First, add MariaDB repository and import the key as shown below
-$ sudo apt-get install software-properties-common
-$ sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8 
-$ sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://sgp1.mirrors.digitalocean.com/mariadb/repo/10.3/ubuntu bionic main'
+$ sudo systemctl stop mariadb.service
+$ sudo systemctl start mariadb.service
+$ sudo systemctl enable mariadb.service
 
 $ sudo apt update
-$ sudo systemctl status mysql
 
 $ sudo mysql_secure_installation
 Set root password? [Y/n]: y
@@ -40,10 +38,26 @@ Disallow root login remotely? (Press y|Y for Yes, any other key for No) : y
 Remove test database and access to it? (Press y|Y for Yes, any other key for No) : y
 Reload privilege tables now? (Press y|Y for Yes, any other key for No) : y
 
+Restart MariaDB server
+$ sudo systemctl restart mariadb.server
+-------------------------------
+$ sudo mysql or mysql -u root -p
+ USE mysql;
+ UPDATE user SET plugin='' WHERE user ='root';
+ FLUSH PRIVILEGES;
+ EXIT;
+$ sudo mysql -u root -p
+ GRANT ALL PRIVILEGES ON *.* TO 'superadmin'@'localhost' IDENTIFIED BY 'very_strong_password';
+
 
 ▶ Install PHP:- 
+$ sudo apt-get install software-properties-common
 $ sudo add-apt-repository ppa:ondrej/php
 $ sudo apt-get install -y php5.6 php7.0 php7.2
+        OR
+$ sudo apt install php7.4 libapache2-mod-php7.4 php7.4-common php7.4-gmp php7.4-curl php7.4-intl 
+php7.4-mbstring php7.4-xmlrpc php7.4-mysql php7.4-gd php7.4-bcmath php7.4-xml php7.4-cli php7.4-zip
+
 $ sudo vi /home/user_name/www/info.php
 
 <?php
@@ -51,6 +65,7 @@ phpinfo();
 ?>
 
 $ sudo systemctl restart apache2
+$ sudo apt update
 
 For change php version:- 
 update-alternatives --set php /usr/bin/php7.2
@@ -58,16 +73,9 @@ $ sudo a2dismod php5.6
 $ sudo a2enmod php7.2
 
 ▶ Install Phpmyadmin:- 
-$ apt-get install phpmyadmin php-gettext
-$ systemctl restart apache2
-$ mysql -u root -p
-    echo "update user set plugin='' where User='root'; flush privileges;" | mysql -u root -p mysql
-     GRANT ALL PRIVILEGES ON *.* TO root@localhost IDENTIFIED BY 'root';
-
-  use mysql;
-    update user set plugin='' where User='root';
-    flush privileges;
-$ systemctl restart apache2
+$ sudo apt-get install phpmyadmin
+[*] apache2 
+ <No>      
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 ** 'unix_socket' plugin error:- 
