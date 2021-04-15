@@ -1,0 +1,30 @@
+HOW SSH works
+
+# SSH protocol uses symmetric encryption, asymmetric encryption and hashing in order to secure transmission of information.
+# SSH Connection b/w client and server happens in 3 stages
+    1.Verification of server by the client
+    2.Generation of session key to encrypt all the communication
+    3.Authentication of the client by server
+
+# Verification of the server by client
+    Client initiates ssh connection with server. Server listens to ssh connections by default on port 22. 
+     At this point is server identity verified, but we have two cases
+      1.Communication b/w client and server for the first time:
+            !client is asked to authenticate the server manually by verifying the public key of the server. 
+            Once the key is verified, the server will be added to ~/.ssh/known_hosts.
+      2.If the client is not accessing the server for the first time server’s identity will be matched with previously recorded information on known_hosts file
+# Generation of SESSION KEY
+    1.After the server is verified, both parties negotiate a session key using some version Diffie-Helmen algorithm.
+    2.This generated session key is used for encrypting and decrypting the message during the session
+# Authentication of the client
+    1.Final step involves authentication of the client by server. Authentication is done by using SSH key pair
+    2.As soon as session key is generated the authentication happens as mentioned in the following steps
+    3.Client begins by sending an ID of the key pair it would like to authenticate
+    4.Server checks authorized_keys file
+    5.If matching ID is found, server generates a random number and uses the public key to encrypt the number and sends this message
+    6. If the client has the correct private key, it will decrypt this message and obtain random
+    7.This random is combine with session and hash is generated. This hash is sent to server as an answer.
+    8.If the two values match, it proves that client has valid private key and client is authenticated
+    
+    
+    
